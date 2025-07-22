@@ -25,6 +25,27 @@ bun install
 bun run build
 ```
 
+## Quick Start with bunx
+
+You can use this MCP server directly with bunx without installing it globally:
+
+```bash
+bunx user-review-mcp
+```
+
+Add it to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "review": {
+      "command": "bunx",
+      "args": ["-y", "user-review-mcp"]
+    }
+  }
+}
+```
+
 ## Usage
 
 Add the server to your `claude_desktop_config.json`:
