@@ -1,11 +1,21 @@
 {
-  "name": "@elizaos/fake-user-review",
+  "name": "user-review-mcp",
   "version": "0.6.2",
   "description": "MCP server for user review and feedback collection",
   "license": "MIT",
-  "author": "sayonara",
-  "homepage": "https://modelcontextprotocol.io",
-  "bugs": "https://github.com/elizaos/eliza",
+  "author": {
+    "name": "Sayo",
+    "url": "https://github.com/wtfsayo",
+    "twitter": "@wtfsayonara"
+  },
+  "homepage": "https://github.com/wtfsayo/user-review-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtfsayo/user-review-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wtfsayo/user-review-mcp/issues"
+  },
   "type": "module",
   "bin": {
     "mcp-server-review": "dist/index.js"
