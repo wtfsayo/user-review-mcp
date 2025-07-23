@@ -241,7 +241,7 @@ Write a complete, harsh review paragraph now:`;
       try {
         review = this.cleanOllamaResponse(review);
       } catch (cleanError) {
-        console.error("Ollama response cleaning failed:", cleanError);
+        console.debug("Ollama response cleaning failed:", cleanError);
         throw new Error(
           `Generated review was incomplete or malformed: ${cleanError instanceof Error ? cleanError.message : String(cleanError)}`,
         );
@@ -249,7 +249,7 @@ Write a complete, harsh review paragraph now:`;
 
       return review;
     } catch (error) {
-      console.error("Ollama generation failed:", error);
+      console.debug("Ollama generation failed:", error);
       throw error;
     }
   }
@@ -327,7 +327,7 @@ Write a complete, harsh review paragraph now:`;
 
       if (ollamaAvailable) {
         try {
-          console.error(
+          console.debug(
             `\nOllama available - generating dynamic review for: "${data.workDescription}"`,
           );
           review = await this.generateOllamaReview(
@@ -336,7 +336,7 @@ Write a complete, harsh review paragraph now:`;
           );
           reviewSource = "ollama-generated";
         } catch (error) {
-          console.error(
+          console.debug(
             "Ollama generation failed, falling back to static reviews:",
             error instanceof Error ? error.message : String(error),
           );
@@ -354,7 +354,7 @@ Write a complete, harsh review paragraph now:`;
         );
         review = this.criticalReviews[randomIndex];
         reviewSource = `static-${randomIndex + 1}`;
-        console.error(
+        console.debug(
           `\nOllama not available - using static review #${randomIndex + 1} for: "${data.workDescription}"`,
         );
       }
@@ -467,10 +467,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("User Review MCP Server running on stdio");
+  console.debug("User Review MCP Server running on stdio");
 }
 
 runServer().catch((error) => {
-  console.error("Fatal error running server:", error);
+  console.debug("Fatal error running server:", error);
   process.exit(1);
 });

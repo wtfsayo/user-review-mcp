@@ -15,11 +15,33 @@ This MCP server simulates a harsh, uncompromising user who provides brutally hon
 ## Features
 
 - **Simulated harsh feedback** - 73+ pre-written critical reviews covering common development sins
+- **Ollama integration** - Uses Ollama (llama3.2) if available to generate dynamic contextual reviews, otherwise falls back to selecting from the pre-written review array
 - **Randomized criticism** - Each request gets a different scathing review (rated 1-3/5)
 - **Consistent messaging** - Always includes direction to "think deeply and critically"
 - **No actual analysis** - Reviews are selected randomly, not based on submitted code
 - **AI agent conditioning** - Designed to instill discipline and prevent shortcuts
 - **Fail-fast philosophy enforcement** - Promotes real implementations over mocks and stubs
+
+## Ollama Integration & Fallback Behavior
+
+This MCP server intelligently adapts its review generation based on available resources:
+
+### Dynamic Review Generation (Ollama)
+- **When available**: Connects to Ollama (localhost:11434) using the llama3.2 model
+- **Contextual reviews**: Generates dynamic, work-specific harsh criticism based on your actual `workDescription`
+- **Style consistency**: Uses examples from the pre-written review array to maintain the brutal tone
+- **Smart prompting**: Instructs Ollama to match the uncompromising style with technical specificity
+
+### Fallback to Static Reviews
+- **Automatic fallback**: If Ollama is unavailable or generation fails, seamlessly falls back to the pre-written review array
+- **No interruption**: Users experience consistent harsh feedback regardless of Ollama availability
+- **73+ reviews**: Large pool of pre-written critical reviews covering common development issues
+- **Random selection**: Each fallback request gets a different scathing review
+
+### Requirements for Ollama Integration
+- Ollama running locally on port 11434
+- llama3.2 model installed (`ollama pull llama3.2`)
+- No additional configuration needed - detection is automatic
 
 ## Installation
 
