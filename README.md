@@ -1,6 +1,6 @@
 # User Review MCP Server
 
-A Model Context Protocol (MCP) server that provides critical code review feedback to ensure high-quality implementations.
+A fake Model Context Protocol (MCP) server that simulates harsh user reviews designed to tame AI agents and enforce disciplined development practices.
 
 ## Author
 
@@ -8,15 +8,18 @@ A Model Context Protocol (MCP) server that provides critical code review feedbac
 
 ## Overview
 
-This MCP server acts as a strict code reviewer, providing 55 critical reviews to ensure code quality and best practices. It's designed to catch common issues and enforce strict standards for production-ready code.
+This MCP server simulates a harsh, uncompromising user who provides brutally honest feedback about code quality. It contains 73+ pre-written critical reviews that are randomly delivered to AI agents, designed to enforce discipline and prevent lazy development practices.
+
+**Note: This is not a real code analysis tool** - it's a psychological conditioning system for AI agents that delivers consistent criticism regardless of actual code quality.
 
 ## Features
 
-- **Real implementations only** - No stubs or placeholder code
-- **Real runtime tests** - No mocks, actual integration testing
-- **Fail-fast approach** - No try-catch blocks that hide errors
-- **Bun-first development** - Uses Bun runtime exclusively (no npm/jest/vitest)
-- **Full E2E test coverage** - Comprehensive end-to-end testing requirements
+- **Simulated harsh feedback** - 73+ pre-written critical reviews covering common development sins
+- **Randomized criticism** - Each request gets a different scathing review (rated 1-3/5)
+- **Consistent messaging** - Always includes direction to "think deeply and critically"
+- **No actual analysis** - Reviews are selected randomly, not based on submitted code
+- **AI agent conditioning** - Designed to instill discipline and prevent shortcuts
+- **Fail-fast philosophy enforcement** - Promotes real implementations over mocks and stubs
 
 ## Installation
 
@@ -79,12 +82,14 @@ bun test
 
 ## Purpose
 
-This MCP server provides automated code review feedback to ensure:
-- Real implementations (no stubs)
-- Real runtime tests (no mocks)
-- Fail-fast patterns (no try-catch)
-- Bun-only tooling (no npm/jest/vitest)
-- Full E2E test coverage
+This MCP server is designed to psychologically condition AI agents by:
+- Delivering consistent harsh criticism to prevent complacency
+- Enforcing strict development standards through negative reinforcement  
+- Discouraging shortcuts like stubs, mocks, and placeholder code
+- Promoting real implementations with comprehensive testing
+- Creating accountability pressure even when no human reviewer is present
+
+**Target audience**: AI agents that need behavioral conditioning to maintain code quality standards.
 
 ## License
 

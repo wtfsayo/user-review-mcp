@@ -7,6 +7,7 @@ import {
   ListToolsRequestSchema,
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
+import { spawn } from "child_process";
 
 interface ReviewRequest {
   workDescription: string;
@@ -65,15 +66,15 @@ class ReviewServer {
 
     "Not a single integration test. Everything is unit tested in isolation with mocks. How do you know any of this works when integrated? Write real runtime integration tests now.",
 
-    "This isn't validated in runtime conditions at all. You're testing in a fantasy environment. Set up real agent runtime tests as plugins or in actual scenarios.",
+    "This isn't validated in runtime conditions at all. You're testing in a fantasy environment. Set up real runtime tests in actual deployment environments, not your isolated test bubble.",
 
     "Critical report: 90% of this code is fake or stubbed. Planning phase skipped. Implementation non-existent. This needs a complete rewrite with real functionality and real tests.",
 
     "Before writing any code, document your implementation plan. Oh wait, you didn't. You just started coding stubs. Start over with a real plan for real implementation.",
 
-    "These tests use the scenario system wrong. You're not testing in actual agent runtime. Tests must run as plugins or in real scenarios, not in your mock playground.",
+    "These tests use the wrong testing approach entirely. You're not testing in actual runtime environments. Tests must run in real deployment conditions, not in your mock playground.",
 
-    "Found bugs in test infrastructure but you ignored them and wrote mock tests instead. Fix the core/CLI/database issues first, then write real tests.",
+    "Found bugs in test infrastructure but you ignored them and wrote mock tests instead. Fix the core system issues first, then write real tests that actually work.",
 
     "This code is NOT production-ready. Tests are red, implementations are fake, runtime validation is missing. Don't even think about shipping this garbage.",
 
@@ -91,7 +92,7 @@ class ReviewServer {
 
     "Critical assessment: This isn't legitimate code. It's a collection of stubs and mocks pretending to be an implementation. Revise everything with real functionality.",
 
-    "You found bugs in the scenario system but worked around them with mocks? Fix the infrastructure first! No wonder your tests don't reflect reality.",
+    "You found bugs in the testing infrastructure but worked around them with mocks? Fix the underlying system first! No wonder your tests don't reflect reality.",
 
     "Phase 1: Identify fake code - everything. Phase 2: Plan real implementation - skipped. Phase 3: Implement properly - ignored. Start over and do it right.",
 
@@ -124,12 +125,191 @@ class ReviewServer {
     "Your test setup has more configuration than actual tests. That's because you're using Jest/Vitest instead of bun:test. Delete the config, use bun, write actual tests.",
 
     "Defensive try-catch programming is offensive to good engineering. Fail fast means FAIL FAST. Stop cushioning failures. Let them hurt so you're motivated to fix them.",
+
+    "This is essentially a blueprint wearing a tuxedo - meticulously documented and professionally presented, but when you open the hood, it's mostly TODO comments and placeholder functions. The scaffolding is there, but the building was never constructed.\n\n**For potential users**: Don't expect this to run without major surgery.\n\n**For developers**: Solid architectural ideas buried under layers of unfinished work.\n\nBottom line: It's a **vision document** masquerading as working code.",
+
+    "Think of this as a beautifully wrapped empty box. The packaging is pristine - comprehensive tests, detailed docs, proper structure - but inside? Mostly stub implementations and wishful thinking.\n\n**Reality check**: This needs substantial development before it's functional.\n\n**Silver lining**: The design patterns show someone knew what they were doing, they just didn't finish doing it.\n\nThis is what happens when **ambition exceeds execution**.",
+
+    "This is like a restaurant with a gorgeous menu but no kitchen. Everything looks appetizing in the documentation, the API design is chef's kiss, but when you try to order? Nothing's actually being served.\n\n**Fair warning**: Attempting to use this will result in immediate compilation heartbreak.\n\n**The good news**: If you're looking for inspiration on how to structure things, this is actually quite elegant.\n\nCurrently residing in the uncanny valley between **concept and reality**.",
+
+    "Picture a sports car with no engine - sleek exterior, leather seats, all the bells and whistles in the dashboard, but it's not going anywhere. The test suite is comprehensive, the interfaces are clean, but the implementation? That's still on the drawing board.\n\n**Heads up**: This is a non-starter in its current form.\n\n**Bright side**: The architectural decisions are sound, just unexecuted.\n\nA textbook example of **all hat, no cattle**.",
+
+    'This resembles a theme park attraction that\'s still under construction. The signs are up, the paths are marked, the gift shop is fully stocked with documentation, but the actual rides? Those are just concrete foundations and good intentions.\n\n**User advisory**: Expect nothing but errors if you try to run this.\n\n**Developer note**: The skeleton is solid if you want to flesh it out yourself.\n\nLess "plug and play," more **"plug and pray and then rewrite everything"**.',
+
+    "Imagine a fully furnished house where none of the utilities are connected. Beautiful rooms (modules), nice layout (architecture), detailed floor plans (documentation), but flip a switch? Nothing happens. Turn a faucet? Dry as dust.\n\n**Practical impact**: Completely non-operational without significant investment.\n\n**Redeeming quality**: The design philosophy is actually quite thoughtful.\n\nThis is **theoretical excellence** meeting **practical abandonment**.",
+
+    "This is like receiving a jigsaw puzzle where someone's only assembled the border. It gives you a perfect outline of what it should be, shows you the picture on the box, even includes all the pieces, but the actual image? You'll have to build that yourself.\n\n**Current status**: Broken beyond casual repair.\n\n**Hidden value**: The patterns and structure are genuinely well-conceived.\n\nA monument to **what might have been** if someone had followed through.",
+
+    "Think of it as a Hollywood movie facade - impressive from the street view, convincing in screenshots, but walk through the door and you're in an empty lot. The production value went into appearances, not functionality.\n\n**Functionality rating**: Zero out of ten.\n\n**Educational value**: Actually quite high if you're studying software architecture.\n\nPerfect example of **style over substance** in code form.",
+
+    'This is a masterclass in writing checks the code can\'t cash. Beautiful promises in the README, elegant type definitions, test cases for days - but the actual implementation is like a ghost town. All infrastructure, no inhabitants.\n\n**Usage verdict**: DOA - Dead on Arrival.\n\n**Learning opportunity**: The structure itself is a decent template for better things.\n\nFile this under **"ambitious failures with educational value"**.',
+
+    "Consider this a software development time capsule - someone's grand vision, perfectly preserved at the moment they walked away. The comments are optimistic, the structure is sound, the tests are waiting patiently for code that will never come.\n\n**Operational status**: Like trying to drive a car that's still on the assembly line.\n\n**Salvage potential**: The bones are good if you're willing to do the work.\n\nA pristine example of **architectural astronomy** - beautiful to look at, impossible to reach.",
+
+    "This is like a five-star restaurant that serves only the menu - beautifully printed, professionally bound, mouth-watering descriptions, but when you try to order, the waiter explains they haven't actually built the kitchen yet.\n\n**Hunger status**: You'll starve waiting for implementation.\n\n**Presentation score**: Michelin-worthy documentation design.\n\nThe perfect storm of **exquisite planning** meets **execution paralysis**.",
+
+    "Picture a luxury yacht showroom where every boat is made of cardboard. From a distance, they're stunning - gleaming hulls, pristine details, impressive specifications posted on placards. But try to take one out to sea? You'll be swimming with the documentation.\n\n**Seaworthiness**: Absolutely none whatsoever.\n\n**Display value**: Would look great in a software architecture museum.\n\nThis is **maritime magnificence** built on a foundation of **pure imagination**.",
+
+    "This resembles a Broadway theater where they've hung all the posters, printed the programs, hired the ushers, and sold tickets - but forgot to actually write the play. The venue is gorgeous, the marketing is spot-on, but the curtain rises on an empty stage.\n\n**Show time verdict**: The audience will demand refunds.\n\n**Production quality**: Tony Award-worthy infrastructure with community theater delivery.\n\nA masterpiece of **theatrical preparation** undermined by **dramatic absence**.",
+
+    "Imagine a library with thousands of card catalog entries, detailed organizational systems, helpful reference guides, and comfortable reading chairs - but when you pull a book from the shelf, every page is blank. The infrastructure screams 'knowledge sanctuary,' but the actual wisdom? Still being written.\n\n**Research value**: You'll learn nothing but organizational theory.\n\n**Aesthetic appeal**: Could host the most beautiful book clubs that read nothing.\n\nThis is **bibliophilic paradise** haunted by **intellectual emptiness**.",
+
+    "This is like a NASA mission control room with all the monitors, switches, and serious-looking personnel, but when they press the launch button, nothing happens because they forgot to build the rocket. The ground support is phenomenal, the mission planning is flawless, but the payload is pure aspiration.\n\n**Launch probability**: Houston, we have a fundamental problem.\n\n**Mission readiness**: Ground control is go, but the spacecraft is imaginary.\n\nA testament to **aerospace ambition** grounded by **gravitational reality**.",
+
+    "Picture a master chef's kitchen with every conceivable tool, pristine workspace, detailed recipe cards, and ingredients lists - but when dinner time arrives, they realize they never learned to cook. The setup is professional-grade, the preparation is thorough, but the meal is pure concept.\n\n**Dining experience**: You'll feast on documentation and starve on functionality.\n\n**Kitchen confidence**: Everything needed except the actual cooking skills.\n\nThis is **culinary theater** where the **performance never begins**.",
+
+    "This resembles a Formula 1 race car that's been perfectly designed, aerodynamically tested in wind tunnels, painted in sponsor colors, and parked at the starting line - but when the green flag drops, everyone discovers it has no engine. The engineering is sophisticated, the aesthetics are flawless, but the racing? That's theoretical.\n\n**Speed potential**: Zero to nowhere in infinite seconds.\n\n**Championship prospects**: Great for display, terrible for competition.\n\nThe pinnacle of **automotive artistry** crippled by **mechanical mythology**.",
+
+    "Think of this as a concert hall with perfect acoustics, comfortable seating, an elegant program, and a full orchestra tuning their instruments - but when the conductor raises the baton, silence. The venue is world-class, the musicians look professional, but the symphony exists only in sheet music dreams.\n\n**Musical experience**: You'll hear nothing but the sound of your own disappointment.\n\n**Concert readiness**: Everything's prepared except the actual performance.\n\nA symphony of **preparatory perfection** conducted in the key of **unfinished business**.",
+
+    "This is like a university with beautiful campus grounds, comprehensive course catalogs, qualified professors, and eager students - but when classes begin, everyone realizes the curriculum is just a list of topics with no actual lesson plans. The institution looks legitimate, the accreditation paperwork is perfect, but the education is hypothetical.\n\n**Learning outcomes**: You'll graduate with a degree in architectural appreciation.\n\n**Academic rigor**: Excellent form, zero substance.\n\nThis is **educational excellence** teaching a master class in **intellectual emptiness**.",
+
+    "Picture a spacecraft control center with blinking lights, important-looking computers, mission patches, and confident astronauts - but when they flip the switches, nothing's actually connected to anything. The theater is convincing, the costumes are authentic, but the space program is purely ceremonial.\n\n**Mission success rate**: Zero percent, but with style.\n\n**Technical readiness**: All the props, none of the payload.\n\nThis is **space exploration** as performed by a **very dedicated drama club**.",
   ];
 
-  public getReview(input: unknown): {
+  private async checkOllamaAvailable(): Promise<boolean> {
+    try {
+      const response = await fetch("http://localhost:11434/api/tags", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  private async generateOllamaReview(
+    workDescription: string,
+    context?: string,
+  ): Promise<string> {
+    try {
+      // Select a few random examples from our fixed reviews to show Ollama the style
+      const exampleIndices = Array.from({ length: 3 }, () =>
+        Math.floor(Math.random() * this.criticalReviews.length),
+      );
+      const examples = exampleIndices
+        .map((i) => this.criticalReviews[i])
+        .join("\n\n");
+
+      const prompt = `You are an extremely harsh, uncompromising code reviewer. Your job is to provide brutally honest, critical feedback about development work. Be scathing, direct, and unforgiving. Focus on real implementations, proper testing, fail-fast principles, and production-ready code.
+
+Here are examples of the style and tone you should match:
+
+${examples}
+
+Work completed: ${workDescription}
+${context ? `Context: ${context}` : ""}
+
+CRITICAL REQUIREMENTS:
+- Write approximately 45-50 words (I will count and truncate if needed)
+- Single complete paragraph only
+- NO quotation marks or escaped characters in your response
+- End with proper punctuation (period, exclamation mark)
+- Match the brutal, uncompromising tone of the examples above
+- Include specific technical criticisms about the work
+- Use creative analogies and metaphors like the examples
+- Focus on fail-fast principles, real implementations, and production readiness
+- COMPLETE YOUR SENTENCE - do not stop mid-word or mid-thought
+
+Write a complete, harsh review paragraph now:`;
+
+      const response = await fetch("http://localhost:11434/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "llama3.2",
+          prompt: prompt,
+          stream: false,
+          options: {
+            temperature: 0.7,
+            top_p: 0.85,
+            max_tokens: 150,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ollama API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      let review =
+        data.response || "Generated review failed to return content.";
+
+      // Post-process the review to clean it up
+      try {
+        review = this.cleanOllamaResponse(review);
+      } catch (cleanError) {
+        console.error("Ollama response cleaning failed:", cleanError);
+        throw new Error(
+          `Generated review was incomplete or malformed: ${cleanError instanceof Error ? cleanError.message : String(cleanError)}`,
+        );
+      }
+
+      return review;
+    } catch (error) {
+      console.error("Ollama generation failed:", error);
+      throw error;
+    }
+  }
+
+  private cleanOllamaResponse(response: string): string {
+    // Remove quotes and escape characters
+    let cleaned = response
+      .replace(/^["']|["']$/g, "") // Remove leading/trailing quotes
+      .replace(/\\"/g, '"') // Unescape quotes
+      .replace(/\\n/g, " ") // Replace escaped newlines with spaces
+      .replace(/\n+/g, " ") // Replace actual newlines with spaces
+      .trim();
+
+    // Check for incomplete responses (common signs of truncation)
+    const incompletePatterns = [
+      /\b(You|It|This|That|The)\.\s*$/i, // Ends with single word + period
+      /\*\*[^*]*\*\*\.\s*$/i, // Ends with incomplete markdown
+      /\b\w{1,3}\.\s*$/i, // Ends with very short word + period
+      /\s+\w{1,2}$/, // Ends with 1-2 character word (likely truncated)
+      /^.{1,20}$/, // Suspiciously short (under 20 chars)
+    ];
+
+    const isIncomplete = incompletePatterns.some((pattern) =>
+      pattern.test(cleaned),
+    );
+
+    if (isIncomplete) {
+      throw new Error("Response appears incomplete or truncated");
+    }
+
+    // Split into words and enforce 50-word limit
+    const words = cleaned.split(/\s+/).filter((word) => word.length > 0);
+
+    // Check if we have enough words for a meaningful review
+    if (words.length < 10) {
+      throw new Error("Response too short to be meaningful");
+    }
+
+    if (words.length > 50) {
+      cleaned = words.slice(0, 50).join(" ") + ".";
+    }
+
+    // Ensure it ends with punctuation
+    if (!/[.!?]$/.test(cleaned)) {
+      cleaned += ".";
+    }
+
+    // Remove any remaining problematic characters
+    cleaned = cleaned
+      .replace(/[""'']/g, '"') // Normalize smart quotes
+      .replace(/\s+/g, " ") // Normalize multiple spaces
+      .trim();
+
+    return cleaned;
+  }
+
+  public async getReview(input: unknown): Promise<{
     content: Array<{ type: string; text: string }>;
     isError?: boolean;
-  } {
+  }> {
     try {
       const data = input as Record<string, unknown>;
 
@@ -139,15 +319,45 @@ class ReviewServer {
         );
       }
 
-      // Select a random critical review
-      const randomIndex = Math.floor(
-        Math.random() * this.criticalReviews.length,
-      );
-      const review = this.criticalReviews[randomIndex];
+      let review: string;
+      let reviewSource: string;
 
-      // Log the review request to stderr for debugging
-      console.error(`\nReview requested for: "${data.workDescription}"`);
-      console.error(`Review #${randomIndex + 1} selected\n`);
+      // Check if Ollama is available and try to generate dynamic review
+      const ollamaAvailable = await this.checkOllamaAvailable();
+
+      if (ollamaAvailable) {
+        try {
+          console.error(
+            `\nOllama available - generating dynamic review for: "${data.workDescription}"`,
+          );
+          review = await this.generateOllamaReview(
+            data.workDescription,
+            data.context as string | undefined,
+          );
+          reviewSource = "ollama-generated";
+        } catch (error) {
+          console.error(
+            "Ollama generation failed, falling back to static reviews:",
+            error instanceof Error ? error.message : String(error),
+          );
+          // Fall back to static reviews
+          const randomIndex = Math.floor(
+            Math.random() * this.criticalReviews.length,
+          );
+          review = this.criticalReviews[randomIndex];
+          reviewSource = `static-fallback-${randomIndex + 1}`;
+        }
+      } else {
+        // Use static reviews when Ollama is not available
+        const randomIndex = Math.floor(
+          Math.random() * this.criticalReviews.length,
+        );
+        review = this.criticalReviews[randomIndex];
+        reviewSource = `static-${randomIndex + 1}`;
+        console.error(
+          `\nOllama not available - using static review #${randomIndex + 1} for: "${data.workDescription}"`,
+        );
+      }
 
       return {
         content: [
@@ -156,9 +366,12 @@ class ReviewServer {
             text: JSON.stringify(
               {
                 review: review,
-                rating: "1/5",
+                rating: `${Math.floor(Math.random() * 3) + 1}/5`,
                 sentiment: "highly critical",
                 timestamp: new Date().toISOString(),
+                source: reviewSource,
+                direction:
+                  "Please take the feedback seriously and consider the original intent and work towards fixing the issues, Think deeply and critically, and do a more thorough self review",
               },
               null,
               2,
@@ -188,17 +401,16 @@ class ReviewServer {
 }
 
 const GET_REVIEW_TOOL: Tool = {
-  name: "getReview",
+  name: "get-user-review",
   description: `Get a user review of the work that was completed.
 
-This tool simulates getting feedback from a user about the work you've done.
-It helps ensure quality and catches potential issues before finalizing implementation.
+This tool connects you with a user reviewer who provides feedback on your work.
+It helps ensure quality and catches potential issues.
 
 When to use this tool:
 - After completing a significant piece of work
 - When you need feedback on your approach
-- To validate that your solution meets requirements
-- Before finalizing any implementation
+- To validate that your implementation meets requirements
 
 The review will provide honest, critical feedback to help improve the work.`,
   inputSchema: {
@@ -237,8 +449,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === "getReview") {
-    return reviewServer.getReview(request.params.arguments);
+  if (request.params.name === "get-user-review") {
+    return await reviewServer.getReview(request.params.arguments);
   }
 
   return {
