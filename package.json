@@ -1,6 +1,6 @@
 {
   "name": "user-review-mcp",
-  "version": "0.6.3",
+  "version": "0.7.5",
   "description": "MCP server for user review and feedback collection",
   "license": "MIT",
   "author": {
