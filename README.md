@@ -1,6 +1,6 @@
 # User Review MCP Server
 
-A fake Model Context Protocol (MCP) server that simulates harsh user reviews designed to tame AI agents and enforce disciplined development practices.
+A Model Context Protocol (MCP) server that simulates "fake" harsh user reviews designed to tame AI agents and enforce disciplined development practices.
 
 ## Author
 
